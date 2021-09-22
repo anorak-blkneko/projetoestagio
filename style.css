@@ -5,11 +5,12 @@ body {
 
 #loginbox{
     background-color: #FFF;
-    height: 400px;
+    height: auto;
     width: 400px;
     margin-left: 25%;
     text-align: center;
     border-radius: 15px;
+    padding-bottom: 10px;
 
 }
 
