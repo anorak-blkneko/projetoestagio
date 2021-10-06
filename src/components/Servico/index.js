@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import PubSub from 'pubsub-js';
 
 import { Table, Button, Form, FormGroup, Label, Input, Alert  } from 'reactstrap';
+import { getDefaultNormalizer } from '@testing-library/dom';
+
+const disablebtn = false;
 
 class FormServ extends Component {
 
@@ -42,7 +45,7 @@ class FormServ extends Component {
                     
                 </FormGroup>
                 <br/>
-                <Button color="primary" id="btnreg" onClick={this.create}> Registrar</Button>
+                <Button color="primary" id="btnreg" onClick={this.create} disabled={disablebtn}> Registrar</Button>
                 
             </Form>
             
@@ -64,21 +67,24 @@ class ListServ extends Component {
     render() {
 
         const {services} = this.props;
+        console.log(services);
 
         return (
             <Table className="table-bordered text-center table-striped">
                 <thead className="table-dark">
                     <tr>
-                        <th>ID</th>
+                        {/* <th>ID</th> */}
                         <th>Nome</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody>
                     {
+                        
                         services.map(services => (
+                            
                             <tr key={services.id_servico}>
-                                <td>{services.id_servico}</td>
+                                {/* <td>{services.id_servico}</td> */}
                                 <td>{services.nome}</td>
                                 <td>
                                     <Button color="info" size="sm" onClick={e=> this.onEdit(services)}>Editar</Button>
@@ -113,23 +119,61 @@ export default class ServBox extends Component {
 
     save = (services) => {
         let data = {
-            id: parseInt(services.id_servico),
+            id_servico: parseInt(services.id_servico),
             nome: services.nome,
         };
-        console.log(data);
+        console.log("data: " + data);
         const requestInfo = {
-            method: data.id !== 0? 'PATCH': 'POST' ,
+            method: data.id_servico !== 0? 'PATCH': 'POST' ,
             body: JSON.stringify(data),
             headers: new Headers({
                 'Content-type': 'application/json'
             })
         };
 
-        if(data.id === 0){
+
+        if(data.id_servico === 0){
+            //CREATE
+
+            fetch(this.Url, requestInfo)
+            .then(response => response.json())
+            .finally(newService => {
+                console.log("then2");
+                newService = data;
+                console.log("new service:" + newService);
+                let { services } = this.state;
+                services.push(newService);
+                this.setState({services, message: { text: 'Serviço cadastrado com sucesso!', alert: 'success' }});
+                this.timerMessage(3500);
+                this.timerRefresh(3500);
+                
+            })
+            .catch(e => console.log(e));
+        } else {
+            //EDIT
+            fetch(`${this.Url}/${data.id_servico}`, requestInfo)
+            .then(response => response.json())
+            .finally(updatedService => {
+                console.log("edit then2")
+                updatedService = data;
+                console.log("updateservice:" + updatedService);
+                let { services} = this.state;
+                let position = services.findIndex(services => services.id_servico === data.id_servico);
+                services[position] = updatedService;
+                this.setState({services, message: { text: 'Serviço atualizado com sucesso!', alert: 'info' }});
+                this.timerMessage(4000);
+            })
+            .catch(e => console.log(e));
+
+        }
+
+
+        /* if(data.id === 0){
             //CREATE
             fetch(this.Url, requestInfo)
             .then(response => response.json())
             .then(newService => {
+                console.log("then2");
                 let { services} = this.state;
                 services.push(newService);
                 this.setState({services, message: { text: 'Serviço cadastrado com sucesso!', alert: 'success' }});
@@ -149,7 +193,7 @@ export default class ServBox extends Component {
             })
             .catch(e => console.log(e));
 
-        }
+        } */
 
         
     }
@@ -157,10 +201,10 @@ export default class ServBox extends Component {
     delete = (id_servico) => {
         fetch(`${this.Url}/${id_servico}`, {method: 'DELETE'})
             .then(response => response.json())
-            .then(rows => {
-                const services = this.state.services.filter(services => services.id_servico != id_servico);
+            .finally(rows => {
+                const services = this.state.services.filter(services => services.id_servico !== id_servico);
                 this.setState({ services, message: { text: 'Serviço deletado com sucesso!', alert: 'danger' } });
-                this.timerMessage(3000);
+                this.timerMessage(4000);
             })
             .catch(e => console.log(e));
     }
@@ -168,6 +212,16 @@ export default class ServBox extends Component {
     timerMessage = (duration) => {
         setTimeout(() => {
             this.setState({ message: { text: '', alert: ''} });
+
+        }, duration);
+        
+    }
+
+    timerRefresh = (duration) => {
+        setTimeout(() => {
+            window.location.reload();
+            
+
         }, duration);
         
     }
