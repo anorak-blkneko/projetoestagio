@@ -11,6 +11,8 @@ const disablebtn = false;
 function TesteForm()
 {
 
+    const FormEndVar = new FormEnd;
+
     const UrlP = 'https://api-estagio-renan-augusto.herokuapp.com/pessoa';
 
     const[result,idpessoa]=useState([]);
@@ -26,17 +28,20 @@ function TesteForm()
             .then(resp => idpessoa(resp))
     },[])
 
+    const [GetP, SetP] = useState("")
+    const Phand = e => SetP(e.target.value)
+
     
 
     return(
         <div>
             <center>
-                <select className="DropdownC">
+                <select className="DropdownC" onChange={Phand}>
                     <option disabled selected>-- Selecione --</option>
                     {
                         result.map(x=>{
                             return(
-                                <option title={x.id_pessoa} value={x.id_pessoa} onChange={e => FormEnd.setValues(e, 'idpessoa') }>{x.nome_pessoa}</option>
+                                <option title={x.id_pessoa} value={x.id_pessoa} >{x.nome_pessoa}</option>
                                 
                             )
                             
@@ -130,6 +135,8 @@ class FormEnd extends Component {
                         <div className="col-md-12">
 
                         <label >Pessoa:</label>
+                        <Input id="idpessoa" type="text" value={TesteForm.GetP} placeholder="id pessoa" onChange={e => this.setValues(e, 'idpessoa')} />
+
                         <TesteForm value={this.state.model.idpessoa} onChange={e => this.setValues(e, 'idpessoa') }/>
 
 

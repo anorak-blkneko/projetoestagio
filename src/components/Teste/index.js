@@ -7,6 +7,7 @@ function TesteForm()
     const Url = 'https://api-estagio-renan-augusto.herokuapp.com/pessoa';
     const UrlS = 'https://api-estagio-renan-augusto.herokuapp.com/servico';
 
+
     const[result,idpessoa]=useState([]);
     useEffect(() => {
         fetch(Url,
@@ -20,7 +21,7 @@ function TesteForm()
             .then(resp => idpessoa(resp))
     },[])
 
-    const[resultS,idservico]=useState([]);
+    /* const[resultS,idservico]=useState([]);
     useEffect(() => {
         fetch(UrlS,
             {
@@ -31,19 +32,22 @@ function TesteForm()
             })
             .then(resp => resp.json())
             .then(resp => idservico(resp))
-    },[])
+    },[]) */
+
+    const [GetP, SetP] = useState("")
+    const Phand = e => SetP(e.target.value)
 
     return(
         <div>
             <center>
                 <h2>DropdownList</h2>
                 <br/>
-                <select>
-                    <option disabled selected>-- Selecione --</option>
+                <select onChange={Phand}>
+                    <option disabled selected value={"aaa"} onSelect={Phand}>-- Selecione --</option>
                     {
                         result.map(x=>{
                             return(
-                                <option title={x.id_pessoa}>{x.nome_pessoa}</option>
+                                <option title={x.id_pessoa} value={x.id_pessoa} onSelect={Phand}>{x.nome_pessoa}</option>
                                 
                             )
                             
@@ -52,9 +56,18 @@ function TesteForm()
                     }
                     
                 </select>
+                <br/>
+                <br/>
+                <br/>
+
+                <h1> aqui {GetP}</h1>
 
                 <br/>
-                <select>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                {/* <select>
                     <option disabled selected>-- Selecione --</option>
                     {
                         resultS.map(s=>{
@@ -67,7 +80,7 @@ function TesteForm()
                         
                     }
                     
-                </select>
+                </select> */}
             </center>
         </div>
     );

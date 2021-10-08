@@ -1,0 +1,5 @@
+<TesteForm id="idpessoa" value={this.state.model.idpessoa} onChange={e => this.setValues(e, 'idpessoa') }/>
+
+<select className="DropdownC" onChange={(e)=>(FormEnd.setState({idpessoa: e.target.value}))}>
+
+<select className="DropdownC" onChange={e => FormEndVar.setValues(e, 'idpessoa') }>
