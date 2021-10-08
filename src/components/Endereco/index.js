@@ -36,7 +36,7 @@ function TesteForm()
                     {
                         result.map(x=>{
                             return(
-                                <option title={x.id_pessoa} >{x.nome_pessoa}</option>
+                                <option title={x.id_pessoa} value={x.id_pessoa} onChange={e => FormEnd.setValues(e, 'idpessoa') }>{x.nome_pessoa}</option>
                                 
                             )
                             
@@ -130,8 +130,7 @@ class FormEnd extends Component {
                         <div className="col-md-12">
 
                         <label >Pessoa:</label>
-                        <Input id="pessoa" type="integer" value={this.state.model.idpessoa} placeholder="idpessoa..." onChange={e => this.setValues(e, 'idpessoa')}></Input>
-
+                        <TesteForm value={this.state.model.idpessoa} onChange={e => this.setValues(e, 'idpessoa') }/>
 
 
                         </div>
