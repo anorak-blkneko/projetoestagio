@@ -6,6 +6,7 @@ import Header from './components/Header';
 import ServBox from './components/Servico';
 import PessBox from './components/Pessoa';
 import TesteForm from './components/Teste';
+import EndBox from './components/Endereco';
 
 
 function App() {
@@ -22,6 +23,8 @@ function App() {
       <Link to="/Servicos">Serviço</Link>
 
       <Link to="/Pessoas">Pessoas</Link>
+
+      <Link to="/Enderecos">Endereço</Link>
 
       <Link to="/Testes">Testes</Link>
 
@@ -43,6 +46,10 @@ function App() {
 
         <Route path="/Testes" exact>
             <Teste />
+        </Route>
+
+        <Route path="/Enderecos" exact>
+            <Endereco />
         </Route>
 
         <Route path="/" exact>
@@ -101,6 +108,17 @@ function Pessoa(){
       <Header title="Pessoas App"/>
       <br />
       <PessBox />
+    </div>
+  );
+
+}
+
+function Endereco(){
+  return (
+    <div className="container">
+      <Header title="Endereços App"/>
+      <br />
+      <EndBox />
     </div>
   );
 
