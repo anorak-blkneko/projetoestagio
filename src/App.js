@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import Header from './components/Header';
 import ServBox from './components/Servico';
+import PessBox from './components/Pessoa';
+import TesteForm from './components/Teste';
 
 
 function App() {
@@ -19,6 +21,10 @@ function App() {
 
       <Link to="/Servicos">Serviço</Link>
 
+      <Link to="/Pessoas">Pessoas</Link>
+
+      <Link to="/Testes">Testes</Link>
+
       </div>
 
       <Switch>
@@ -29,6 +35,14 @@ function App() {
 
         <Route path="/Servicos" exact>
             <Servico />
+        </Route>
+
+        <Route path="/Pessoas" exact>
+            <Pessoa />
+        </Route>
+
+        <Route path="/Testes" exact>
+            <Teste />
         </Route>
 
         <Route path="/" exact>
@@ -79,6 +93,28 @@ function Servico(){
     </div>
   );
 
+}
+
+function Pessoa(){
+  return (
+    <div className="container">
+      <Header title="Pessoas App"/>
+      <br />
+      <PessBox />
+    </div>
+  );
+
+}
+
+function Teste() {
+  return (
+    <div>
+      <Header title="Testes App"/>
+      <br />
+      <TesteForm />
+
+    </div>
+  );
 }
 
 
