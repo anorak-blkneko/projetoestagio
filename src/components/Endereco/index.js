@@ -8,10 +8,17 @@ import "../StyleSheet.css";
 
 const disablebtn = false;
 
+
+
+
 function TesteForm()
 {
 
+    
+
     const FormEndVar = new FormEnd;
+
+    const EndBoxVar = new EndBox;
 
     const UrlP = 'https://api-estagio-renan-augusto.herokuapp.com/pessoa';
 
@@ -29,14 +36,41 @@ function TesteForm()
     },[])
 
     const [GetP, SetP] = useState("")
-    const Phand = e => SetP(e.target.value)
+    /* const Phand = e => {
+        SetP(e.target.value)
+        //FormEndVar.state.model.idpessoa = parseInt(GetP);
+       // FormEndVar.pnum = parseInt(GetP);
+        //EndBoxVar.PID = parseInt(GetP);
+        //FormEndVar.handlestate(parseInt(GetP));
+        console.log(FormEndVar.state.model);
+
+        
+    } */
+
+    //FormEndVar.state.model.idpessoa = GetP;
+    const Phand = e =>{
+        SetP(e.target.value);
+    }
+    console.log(GetP);
+
+    const ValueP = () => {
+        console.log("VP GP");
+        console.log(GetP);
+        return GetP;
+    }
+
+    const InputChange = (params) => {
+        FormEndVar.changeHandler(params);
+    }
+
+    
 
     
 
     return(
         <div>
             <center>
-                <select className="DropdownC" onChange={Phand}>
+                <select className="DropdownC" onChange={e => InputChange(e.target.value)}>
                     <option disabled selected>-- Selecione --</option>
                     {
                         result.map(x=>{
@@ -57,14 +91,108 @@ function TesteForm()
 
             
         </div>
+        
     );
+}
 
+class PessoaTeste extends Component {
+
+    Url = 'https://api-estagio-renan-augusto.herokuapp.com/pessoa';
+
+    state = {
+        pessoas: [],
+        message: { text: 'Nessa página você pode cadastrar, deletar e alterar Pessoas.', alert: '' }
+    }
+
+    componentDidMount() {
+        fetch(this.Url)
+            .then(Response => Response.json())
+            .then(pessoas => this.setState({pessoas}))
+            .catch(e => console.log(e));
+
+    }
+
+    InputChange = (params) => {
+        this.props.changeHandler(params.target.value);
+        console.log("param")
+        console.log(params.target.value)
+    }
+
+
+
+    
+
+    render() {
+        
+        
+        const {pessoas} = this.props;
+        
+
+        return(
+            <div>
+                <center>
+                    <select className="DropdownC" onChange={e=>(this.InputChange(e))}>
+                        <option disabled selected>-- Selecione --</option>
+                        {
+                            this.state.pessoas.map(x=>{
+                                return(
+                                    <option title={x.id_pessoa} value={x.id_pessoa} >{x.nome_pessoa}</option>
+                                    
+                                )
+                                
+                            })
+                            
+                        }
+                        
+                    </select>
+    
+                    
+                </center>
+                
+    
+                
+            </div>
+            
+        );
+
+    }
+
+    
 
 }
 
+
+
+
 class FormEnd extends Component {
 
-    state = {model: {id_endereco: 0, idpessoa: 1, uf: '', complemento: '', logradouro: '', cep: '', numero: ''}};
+
+    /* constructor(props) {
+        super(props)
+        this.state = {model: {id_endereco: 0, idpessoa: 0, uf: '', complemento: '', logradouro: '', cep: '', numero: ''}};
+        //this.handlestate = this.handlestate.bind(this);
+        
+    } */
+
+    handlestate(e){
+        //this.setState({ idpessoa: e.target.value});
+       // this.state.model.idpessoa = e;
+        
+        console.log("Handle E");
+        console.log(e);
+        this.setValuesPe(e, "idpessoa")
+        //this.setState({ idpessoa: e});
+        
+    }
+
+    setValuesPe = (e, field) => {
+        const { model } = this.state;
+        model[field] = e;
+        this.setState({model});
+    }
+
+    state = {model: {id_endereco: 0, idpessoa: 3, uf: '', complemento: '', logradouro: '', cep: '', numero: ''}};
+
 
     setValues = (e, field) => {
         const { model } = this.state;
@@ -73,7 +201,7 @@ class FormEnd extends Component {
     }
 
     create = () => {
-        this.setState({ model: {id_endereco: 0, idpessoa: 1, uf: '', complemento: '', logradouro: '', cep: '', numero: ''} })
+        //this.setState({ model: {id_endereco: 0, idpessoa: 3, uf: '', complemento: '', logradouro: '', cep: '', numero: ''} })
         this.props.enderecosCreate(this.state.model);
     }
 
@@ -135,9 +263,7 @@ class FormEnd extends Component {
                         <div className="col-md-12">
 
                         <label >Pessoa:</label>
-                        <Input id="idpessoa" type="text" value={TesteForm.GetP} placeholder="id pessoa" onChange={e => this.setValues(e, 'idpessoa')} />
-
-                        <TesteForm value={this.state.model.idpessoa} onChange={e => this.setValues(e, 'idpessoa') }/>
+                        <PessoaTeste changeHandler={this.handlestate.bind(this)} />
 
 
                         </div>
@@ -209,6 +335,7 @@ class ListEnd extends Component {
 }
 
 export default class EndBox extends Component {
+
 
     Url = 'https://api-estagio-renan-augusto.herokuapp.com/endereco';
 

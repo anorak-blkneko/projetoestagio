@@ -3,3 +3,7 @@
 <select className="DropdownC" onChange={(e)=>(FormEnd.setState({idpessoa: e.target.value}))}>
 
 <select className="DropdownC" onChange={e => FormEndVar.setValues(e, 'idpessoa') }>
+
+<select className="DropdownC" onChange={Phand}>
+
+                <select className="DropdownC" onChange={e => FormEndVar.handlestate(e)}>
