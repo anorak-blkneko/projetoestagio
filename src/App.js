@@ -13,10 +13,7 @@ function App() {
   return (
 
     <Router>
-
-      
-      <div>
-      <Link to="/">Home</Link>
+      {/* <Link to="/">Home</Link>
 
       <Link to="/about">About</Link>
 
@@ -26,8 +23,18 @@ function App() {
 
       <Link to="/Enderecos">Endereço</Link>
 
-      <Link to="/Testes">Testes</Link>
-
+      <Link to="/Testes">Testes</Link> */}
+      
+      <div>
+        <ul class="topnav">
+          <li><a href="/">Inicio</a></li>
+          <li><a href="/about">Sobre</a></li>
+          <li><a href="/servicos">Serviços</a></li>
+          <li><a href="/pessoas">Pessoas</a></li>
+          <li><a href="/enderecos">Endereços</a></li>
+          <li><a href="/testes">Testes</a></li>
+          <li class="right"><a href="/sair">Sair</a></li>
+        </ul>
       </div>
 
       <Switch>
