@@ -7,6 +7,7 @@ import ServBox from './components/Servico';
 import PessBox from './components/Pessoa';
 import TesteForm from './components/Teste';
 import EndBox from './components/Endereco';
+import EmailBox from './components/Email';
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
           <li><a href="/servicos">Serviços</a></li>
           <li><a href="/pessoas">Pessoas</a></li>
           <li><a href="/enderecos">Endereços</a></li>
+          <li><a href="/emails">Emails</a></li>
           <li><a href="/testes">Testes</a></li>
           <li class="right"><a href="/sair">Sair</a></li>
         </ul>
@@ -57,6 +59,10 @@ function App() {
 
         <Route path="/Enderecos" exact>
             <Endereco />
+        </Route>
+
+        <Route path="/Emails" exact>
+            <Email />
         </Route>
 
         <Route path="/" exact>
@@ -126,6 +132,17 @@ function Endereco(){
       <Header title="Endereços App"/>
       <br />
       <EndBox />
+    </div>
+  );
+
+}
+
+function Email(){
+  return (
+    <div className="container">
+      <Header title="Emails App"/>
+      <br />
+      <EmailBox />
     </div>
   );
 

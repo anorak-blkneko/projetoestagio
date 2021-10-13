@@ -22,7 +22,7 @@ function TesteForm()
 
     const UrlP = 'https://api-estagio-renan-augusto.herokuapp.com/pessoa';
 
-    const[result,idpessoa]=useState([]);
+    const[result,id_pessoa]=useState([]);
     useEffect(() => {
         fetch(UrlP,
             {
@@ -32,13 +32,13 @@ function TesteForm()
                 }
             })
             .then(resp => resp.json())
-            .then(resp => idpessoa(resp))
+            .then(resp => id_pessoa(resp))
     },[])
 
     const [GetP, SetP] = useState("")
     /* const Phand = e => {
         SetP(e.target.value)
-        //FormEndVar.state.model.idpessoa = parseInt(GetP);
+        //FormEndVar.state.model.id_pessoa = parseInt(GetP);
        // FormEndVar.pnum = parseInt(GetP);
         //EndBoxVar.PID = parseInt(GetP);
         //FormEndVar.handlestate(parseInt(GetP));
@@ -47,7 +47,7 @@ function TesteForm()
         
     } */
 
-    //FormEndVar.state.model.idpessoa = GetP;
+    //FormEndVar.state.model.id_pessoa = GetP;
     const Phand = e =>{
         SetP(e.target.value);
     }
@@ -101,10 +101,18 @@ class PessoaTeste extends Component {
 
     state = {
         pessoas: [],
-        message: { text: 'Nessa página você pode cadastrar, deletar e alterar Pessoas.', alert: '' }
+        message: { text: 'Nessa página você pode cadastrar, deletar e alterar Pessoas.', alert: '' },
+        DropV: null
     }
 
     componentDidMount() {
+        PubSub.subscribe('edit-endereco', (topic, endereco) =>{
+            console.log("pubsub endereco")
+            console.log(endereco.id_pessoa)
+            this.setState({DropV: endereco.id_pessoa});
+        });
+
+
         fetch(this.Url)
             .then(Response => Response.json())
             .then(pessoas => this.setState({pessoas}))
@@ -113,6 +121,7 @@ class PessoaTeste extends Component {
     }
 
     InputChange = (params) => {
+        this.setState({DropV: params.target.value})
         this.props.changeHandler(params.target.value);
         console.log("param")
         console.log(params.target.value)
@@ -131,7 +140,7 @@ class PessoaTeste extends Component {
         return(
             <div>
                 <center>
-                    <select className="DropdownC" onChange={e=>(this.InputChange(e))}>
+                    <select className="DropdownC" onChange={e=>(this.InputChange(e))} value={this.state.DropV}>
                         <option disabled selected>-- Selecione --</option>
                         {
                             this.state.pessoas.map(x=>{
@@ -169,19 +178,19 @@ class FormEnd extends Component {
 
     /* constructor(props) {
         super(props)
-        this.state = {model: {id_endereco: 0, idpessoa: 0, uf: '', complemento: '', logradouro: '', cep: '', numero: ''}};
+        this.state = {model: {id_endereco: 0, id_pessoa: 0, uf: '', complemento: '', logradouro: '', cep: '', numero: ''}};
         //this.handlestate = this.handlestate.bind(this);
         
     } */
 
     handlestate(e){
-        //this.setState({ idpessoa: e.target.value});
-       // this.state.model.idpessoa = e;
+        //this.setState({ id_pessoa: e.target.value});
+       // this.state.model.id_pessoa = e;
         
         console.log("Handle E");
         console.log(e);
-        this.setValuesPe(e, "idpessoa")
-        //this.setState({ idpessoa: e});
+        this.setValuesPe(e, "id_pessoa")
+        //this.setState({ id_pessoa: e});
         
     }
 
@@ -191,7 +200,7 @@ class FormEnd extends Component {
         this.setState({model});
     }
 
-    state = {model: {id_endereco: 0, idpessoa: 3, uf: '', complemento: '', logradouro: '', cep: '', numero: ''}};
+    state = {model: {id_endereco: 0, id_pessoa: 3, uf: '', complemento: '', logradouro: '', cep: '', numero: ''}};
 
 
     setValues = (e, field) => {
@@ -201,7 +210,7 @@ class FormEnd extends Component {
     }
 
     create = () => {
-        //this.setState({ model: {id_endereco: 0, idpessoa: 3, uf: '', complemento: '', logradouro: '', cep: '', numero: ''} })
+        //this.setState({ model: {id_endereco: 0, id_pessoa: 3, uf: '', complemento: '', logradouro: '', cep: '', numero: ''} })
         this.props.enderecosCreate(this.state.model);
     }
 
@@ -281,6 +290,10 @@ class FormEnd extends Component {
 
 class ListEnd extends Component {
 
+    state = {
+        pessoas: [],
+    }
+
     delete = (id_endereco) => {
         this.props.deleteenderecos(id_endereco);
     }
@@ -289,17 +302,30 @@ class ListEnd extends Component {
         PubSub.publish('edit-endereco', enderecos);
     }
 
+    Url = 'https://api-estagio-renan-augusto.herokuapp.com/pessoa';
+
+
+    componentDidMount() {
+        fetch(this.Url)
+            .then(Response => Response.json())
+            .then(pessoas => this.setState({pessoas}))
+            .catch(e => console.log(e));
+
+    }
+
     
     render() {
 
         const {enderecos} = this.props;
         console.log(enderecos);
+        console.log("List pessoas")
+        console.log(this.state.pessoas.filter(p => p.id_pessoa == 2).map(fp => fp.nome_pessoa))
 
         return (
             <Table className="table-bordered text-center table-striped">
                 <thead className="table-dark">
                     <tr>
-                        {/* <th>ID</th> */}
+                        <th>Pessoa</th>
                         <th>Logradouro</th>
                         <th>CEP</th>
                         <th>UF</th>
@@ -314,7 +340,7 @@ class ListEnd extends Component {
                         enderecos.map(enderecos => (
                             
                             <tr key={enderecos.id_endereco}>
-                                {/* <td>{enderecos.id_endereco}</td> */}
+                                <td>{this.state.pessoas.filter(pes => pes.id_pessoa == enderecos.id_pessoa).map(filpes => filpes.nome_pessoa)}</td>
                                 <td>{enderecos.logradouro}</td>
                                 <td>{enderecos.cep}</td>
                                 <td>{enderecos.uf}</td>
@@ -355,7 +381,7 @@ export default class EndBox extends Component {
     save = (enderecos) => {
         let data = {
             id_endereco: parseInt(enderecos.id_endereco),
-            idpessoa: parseInt(enderecos.idpessoa),
+            id_pessoa: parseInt(enderecos.id_pessoa),
             uf: enderecos.uf,
             complemento: enderecos.complemento,
             logradouro: enderecos.logradouro,
@@ -463,7 +489,7 @@ export default class EndBox extends Component {
 
     timerRefresh = (duration) => {
         setTimeout(() => {
-           // window.location.reload();
+           window.location.reload();
             
 
         }, duration);
