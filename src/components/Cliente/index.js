@@ -449,8 +449,10 @@ class ListCli extends Component {
         telefone: [],
     }
 
-    delete = (id_pessoa) => {
-        this.props.deleteclientes(id_pessoa);
+    delete = (id_cliente) => {
+        console.log("delete cliente")
+        console.log(id_cliente)
+        this.props.deleteclientes(id_cliente);
     }
 
     onEdit = (clientes) => {
@@ -520,7 +522,7 @@ class ListCli extends Component {
                                 <td>{this.state.telefone.filter(tel => tel.id_telefone == clientes.id_telefone).map(filtel => filtel.telefone)}</td>
                                 <td>
                                     <Button color="info" size="sm" onClick={e=> this.onEdit(clientes)}>Editar</Button>
-                                    <Button color="danger" size="sm" onClick={e => this.delete(clientes.id_pessoa)}>Deletar</Button>
+                                    <Button color="danger" size="sm" onClick={e => this.delete(clientes.id_cliente)}>Deletar</Button>
                                 </td>
                             </tr>
                         ))
