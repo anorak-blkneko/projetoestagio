@@ -241,8 +241,8 @@ export default class EmailBox extends Component {
 
     save = (emails) => {
         let data = {
-            id_email: parseInt(emails.id_email),
             id_pessoa: parseInt(emails.id_pessoa),
+            id_email: parseInt(emails.id_email),
             email: emails.email,
         };
         console.log("data: " + data);
@@ -342,7 +342,7 @@ export default class EmailBox extends Component {
 
     timerRefresh = (duration) => {
         setTimeout(() => {
-           // window.location.reload();
+           window.location.reload();
             
 
         }, duration);
