@@ -10,6 +10,7 @@ import EndBox from './components/Endereco';
 import EmailBox from './components/Email';
 import TelBox from './components/Telefone';
 import CliBox from './components/Cliente';
+import FuncBox from './components/Funcionario';
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
           <li><a href="/emails">Emails</a></li>
           <li><a href="/telefones">Telefones</a></li>
           <li><a href="/clientes">Clientes</a></li>
+          <li><a href="/funcionarios">Funcionarios</a></li>
           <li><a href="/testes">Testes</a></li>
           <li class="right"><a href="/sair">Sair</a></li>
         </ul>
@@ -75,6 +77,10 @@ function App() {
 
         <Route path="/Clientes" exact>
             <Cliente />
+        </Route>
+
+        <Route path="/Funcionarios" exact>
+            <Funcionario />
         </Route>
 
         <Route path="/" exact>
@@ -177,6 +183,17 @@ function Cliente(){
       <Header title="Clientes App"/>
       <br />
       <CliBox />
+    </div>
+  );
+
+}
+
+function Funcionario(){
+  return (
+    <div className="container">
+      <Header title="Funcionarios App"/>
+      <br />
+      <FuncBox />
     </div>
   );
 
