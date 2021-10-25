@@ -247,7 +247,7 @@ class ServicoImport extends Component {
 
 
 
-class FormOrc extends Component {
+class FormOrcCli extends Component {
 
     handlestate(e, field){
         //this.setState({ id_pessoa: e.target.value});
@@ -255,9 +255,12 @@ class FormOrc extends Component {
         
         console.log("Handle E");
         console.log(e);
-        console.log("Handle field");
-        console.log(field);
-        this.setValuesPe(e, field)
+       // console.log("Handle field");
+       // console.log(field);
+       // this.setValuesPe(e, field)
+       console.log("handle state entered");
+       this.forceUpdate();
+       PubSub.publish('edit-orcamento-cliente-id', e);
         
         //this.setState({ id_pessoa: e});
         
@@ -311,82 +314,6 @@ class FormOrc extends Component {
                 </FormGroup>
 
                 <br/>
-
-                <FormGroup>
-                    <div className="row">
-                        <div className="col-md-12">
-
-                        <label >Funcionário:</label>
-                        <FuncionarioImport changeHandler={this.handlestate.bind(this)} />
-
-
-                        </div>
-                    </div> 
-                </FormGroup>
-
-                <br/>
-
-                <FormGroup>
-                    <div className="row">
-                        <div className="col-md-12">
-
-                        <label >Serviço:</label>
-                        <ServicoImport changeHandler={this.handlestate.bind(this)} />
-
-
-                        </div>
-                    </div> 
-                </FormGroup>
-
-                <br/>
-
-                <FormGroup>
-                    <div className="row">
-                        <div className="col-md-6">
-                            <Label>Data de Criação:</Label>
-                            <Input id="data_criacao" type="date"  value={moment.utc(this.state.model.data_criacao).format('YYYY-MM-DD')} placeholder="" onChange={e => this.setValues(e, 'data_criacao') } />
-                        </div>
-                        <div className="col-md-6">
-                            <Label>Data de Entrega:</Label>
-                            <Input id="data_entrega" type="date" value={moment.utc(this.state.model.data_entrega).format('YYYY-MM-DD')} placeholder="" onChange={e => this.setValues(e, 'data_entrega') } />
-                        </div>
-                    </div>
-                </FormGroup>
-
-                <br/>
-
-                <FormGroup>
-                    <div className="form-row">
-                        <div className="col-md-12">
-
-                        <label >Valor:</label>
-                        <Input id="valor" type="text" value={this.state.model.valor} placeholder="Valor" onChange={e => this.setValues(e, 'valor')}></Input>
-                        </div>
-                        
-
-                    </div>
-                    
-                    
-                </FormGroup>
-                <br/>
-
-
-
-                <FormGroup>
-                    <div className="form-row">
-                        <div className="col-md-12">
-
-                        <label >status_andamento:</label>
-                        <Input id="status_andamento" type="text" value={this.state.model.status_andamento} placeholder="Descreva o andamento deste orçamento..." onChange={e => this.setValues(e, 'status_andamento')}></Input>
-                        </div>
-                        
-
-                    </div>
-                    
-                    
-                </FormGroup>
-                <br/>
-                <Button color="primary" id="btnreg" onClick={this.create} disabled={disablebtn}> Registrar</Button>
                 
             </Form>
             
@@ -394,9 +321,11 @@ class FormOrc extends Component {
     }
 }
 
-class ListOrc extends Component {
+class ListOrcCli extends Component {
 
     state = {
+        SelectCli: 0,
+        orcamentosS: [],
         pessoas: [],
         clientes: [],
         funcionarios: [],
@@ -411,6 +340,7 @@ class ListOrc extends Component {
         PubSub.publish('edit-orcamento', orcamentos);
     }
 
+    UrlO = 'https://api-estagio-renan-augusto.herokuapp.com/orcamento';
     UrlP = 'https://api-estagio-renan-augusto.herokuapp.com/pessoa';
     UrlC = 'https://api-estagio-renan-augusto.herokuapp.com/cliente';
     UrlF = 'https://api-estagio-renan-augusto.herokuapp.com/funcionario';
@@ -438,6 +368,20 @@ class ListOrc extends Component {
         .then(servicos => this.setState({servicos}))
         .catch(e => console.log(e));
 
+        fetch(this.UrlO)
+        .then(Response => Response.json())
+        .then(orcamentosS => this.setState({orcamentosS}))
+        .catch(e => console.log(e));
+
+        PubSub.subscribe('edit-orcamento-cliente-id', (topic, e) =>{
+            console.log("pubsub novo")
+            console.log(e)
+            this.setState({SelectCli: e});
+            console.log("SelectCli valueeeeee")
+            console.log(this.state.SelectCli)
+            this.forceUpdate();
+        });
+
     }
 
     
@@ -458,33 +402,31 @@ class ListOrc extends Component {
                         <th>Data de Entrega</th>
                         <th>Valor</th>
                         <th>status_andamento</th>
-                        <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody>
                     {
-                        
-                        orcamentos.map(orcamentos => (
-                            
-                            <tr key={orcamentos.id_orcamento}>
+                        this.state.orcamentosS.filter(orc => orc.id_cliente == this.state.SelectCli).map( orc => (
+                            <tr key={orc.id_orcamento}>
                                 {/* <td>{orcamentos.id_orcamento}</td> */}
                                 {/* <td>{this.state.pessoas.filter(pes => pes.id_pessoa == orcamentos.id_pessoa).map(filpes => filpes.nome_pessoa)}</td> */}
                                 {/* <td>{orcamentos.id_orcamento}</td> */}
-                                <td>{this.state.pessoas.filter(pes => pes.id_pessoa == (this.state.clientes.filter(cli => cli.id_cliente == orcamentos.id_cliente).map(filcli => filcli.id_pessoa)) ).map(filpes => filpes.nome_pessoa)}</td>
+                                <td>{this.state.pessoas.filter(pes => pes.id_pessoa == (this.state.clientes.filter(cli => cli.id_cliente == orc.id_cliente).map(filcli => filcli.id_pessoa)) ).map(filpes => filpes.nome_pessoa)}</td>
                                 {/* <td>{orcamentos.id_funcionario}</td> */}
-                                <td>{this.state.pessoas.filter(pes => pes.id_pessoa == (this.state.funcionarios.filter(fun => fun.id_funcionario == orcamentos.id_funcionario).map(filfun => filfun.id_pessoa)) ).map(filpes => filpes.nome_pessoa)}</td>
+                                <td>{this.state.pessoas.filter(pes => pes.id_pessoa == (this.state.funcionarios.filter(fun => fun.id_funcionario == orc.id_funcionario).map(filfun => filfun.id_pessoa)) ).map(filpes => filpes.nome_pessoa)}</td>
                                 {/* <td>{orcamentos.id_servico}</td> */}
-                                <td>{this.state.servicos.filter(ser => ser.id_servico == orcamentos.id_servico).map(filser => filser.nome)}</td>
-                                <td>{moment.utc(orcamentos.data_criacao).format('DD-MM-YYYY')}</td>
-                                <td>{moment.utc(orcamentos.data_entrega).format('DD-MM-YYYY')}</td>
-                                <td>{orcamentos.valor}</td>
-                                <td>{orcamentos.status_andamento}</td>
-                                <td>
-                                    <Button color="info" size="sm" onClick={e=> this.onEdit(orcamentos)}>Editar</Button>
-                                    <Button color="danger" size="sm" onClick={e => this.delete(orcamentos.id_orcamento)}>Deletar</Button>
-                                </td>
+                                <td>{this.state.servicos.filter(ser => ser.id_servico == orc.id_servico).map(filser => filser.nome)}</td>
+                                <td>{moment.utc(orc.data_criacao).format('DD-MM-YYYY')}</td>
+                                <td>{moment.utc(orc.data_entrega).format('DD-MM-YYYY')}</td>
+                                <td>{orc.valor}</td>
+                                <td>{orc.status_andamento}</td>
                             </tr>
                         ))
+
+                        //<td>{this.state.pessoas.filter(pes => pes.id_pessoa == (this.state.clientes.filter(cli => cli.id_cliente == orcamentos.id_cliente).map(filcli => filcli.id_pessoa)) ).map(filpes => filpes.nome_pessoa)}</td>
+                        
+                        
+                        
                     }
                 </tbody>
             </Table>
@@ -493,9 +435,9 @@ class ListOrc extends Component {
 
 }
 
-export default class OrcBox extends Component {
+export default class OrcCliBox extends Component {
 
-    Url = 'https://api-estagio-renan-augusto.herokuapp.com/orcamento';
+    Url = 'https://api-estagio-renan-augusto.herokuapp.com/orcamento/';
 
     state = {
         orcamentos: [],
@@ -637,16 +579,18 @@ export default class OrcBox extends Component {
             
                 <div className="row">
                     
-                    <div className="col-md-6 my-3">
-                        <h2 className="font-weight-bold text-center"> Cadastro de Orçamentos</h2>
-                        <FormOrc orcamentosCreate={this.save} />
+                    <div className="col-md-12 my-3">
+                        <h2 className="font-weight-bold text-center"> Selecione o Cliente</h2>
+                        <FormOrcCli orcamentosCreate={this.save} />
                     </div>
-                    <div className="col-md-6 my-3">
+                </div>
 
-                        <h2 className="font-weight-bold text-center"> Lista de Orçamentos</h2>
-                        <ListOrc orcamentos={this.state.orcamentos} deleteorcamentos={this.delete} />
+                <div className="row">
+                    <div className="col-md-12 my-3">
+
+                        <h2 className="font-weight-bold text-center"> Lista de Orçamentos do Cliente Selecionado</h2>
+                        <ListOrcCli orcamentos={this.state.orcamentos} deleteorcamentos={this.delete} />
                     </div>
-
                 </div>
 
             </div>

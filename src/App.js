@@ -12,6 +12,7 @@ import TelBox from './components/Telefone';
 import CliBox from './components/Cliente';
 import FuncBox from './components/Funcionario';
 import OrcBox from './components/Orcamento';
+import OrcCliBox from './components/OrcamentoCliente';
 
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
           <li><a href="/clientes">Clientes</a></li>
           <li><a href="/funcionarios">Funcionarios</a></li>
           <li><a href="/orcamentos">Orçamentos</a></li>
+          <li><a href="/orcamentoscliente">OrçamentosClientes</a></li>
           <li><a href="/testes">Testes</a></li>
           <li class="right"><a href="/sair">Sair</a></li>
         </ul>
@@ -87,6 +89,10 @@ function App() {
 
         <Route path="/Orcamentos" exact>
             <Orcamento />
+        </Route>
+
+        <Route path="/OrcamentosCliente" exact>
+            <OrcamentoCliente />
         </Route>
 
         <Route path="/" exact>
@@ -211,6 +217,17 @@ function Orcamento(){
       <Header title="Orçamentos App"/>
       <br />
       <OrcBox />
+    </div>
+  );
+
+}
+
+function OrcamentoCliente(){
+  return (
+    <div className="container">
+      <Header title="Orçamentos de Clientes App"/>
+      <br />
+      <OrcCliBox />
     </div>
   );
 
