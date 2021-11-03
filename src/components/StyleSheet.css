@@ -31,24 +31,41 @@ ul.topnav {
     ul.topnav li {float: none;}
   }
 
-  ul li ul {
-    visibility: hidden;
-    opacity: 0;
-    position: absolute;
-    transition: all 0.5s ease;
-    margin-top: 1rem;
-    left: 0;
-    display: none;
+  .nav-tabs{
+    background-color: #12130F;
   }
-  
-  ul li:hover > ul,
-  ul li ul:hover {
-    visibility: visible;
-    opacity: 1;
+
+  .nav-tabs .nav-link {
+    color: white;
+    font-size: 17px;
+    cursor: pointer;
+  }
+
+  .nav-tabs .nav-link:hover:not(.active) {background-color: #2A4FBF;}
+
+  .right {float: right;}
+
+  .dropdown-menu{
+    background-color: #12130F;
+  }
+
+  .dropdown-item{
+    color: white;
+  }
+
+  .dropdown-menu .nav-link:hover:not(.active) {background-color: #2A4FBF;}
+
+  .img-responsive {
+    height: auto;
+    width: auto;
+    max-height: 30px;
+    max-width: 250px;
+    position: relative;
     display: block;
-  }
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 6px;
+    margin-left: 5px;
+}
+
   
-  ul li ul li {
-    clear: both;
-    width: 100%;
-  }

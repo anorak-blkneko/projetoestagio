@@ -18,116 +18,189 @@ import OrcCliBox from './components/OrcamentoCliente';
 import OrcConBox from './components/OrcamentoConcluido';
 
 
-function App() {
+class App extends Component {
 
-  return (
+  state = {
+    open: false
+  };
+  handleButtonClick = () => {
+    this.setState(state => {
+      return {
+        open: !state.open
+      };
+    });
+  };
 
-    <Router>
-      {/* <Link to="/">Home</Link>
+  handleClickOutside = event => {
+  if (this.container.current && !this.container.current.contains(event.target)) {
+    this.setState({
+      open: false,
+      });
+    }
+  };
 
-      <Link to="/about">About</Link>
+  componentDidMount() {
+    document.addEventListener("mousedown", this.handleClickOutside);
+  } 
+  componentWillUnmount() {
+    document.removeEventListener("mousedown", this.handleClickOutside);
+  }
 
-      <Link to="/Servicos">Serviço</Link>
+  container= React.createRef();
+  state = {
+  open: false,
+  };
 
-      <Link to="/Pessoas">Pessoas</Link>
+  render(){
+    return (
 
-      <Link to="/Enderecos">Endereço</Link>
-
-      <Link to="/Testes">Testes</Link> */}
-      
-      <div>
-
-      <nav role="navigation">
-
-        <ul class="topnav">
-          <li><a href="/">Inicio</a></li>
-          <li><a href="/about">Sobre</a></li>
-          <li><a href="/servicos">Serviços</a></li>
-          <li><a href="/pessoas">Pessoas</a></li>
-          <li><a href="/enderecos">Endereços</a></li>
-          <li><a href="/emails">Emails</a></li>
-          <li><a href="/telefones">Telefones</a></li>
-          <li><a href="/clientes">Clientes</a></li>
-          <li><a href="/funcionarios">Funcionarios</a></li>
-          <li><a href="/orcamentos">Orçamentos</a></li>
-          <li><a>Relatórios</a>
-            <ul class="dropdown">
-
-            <li><a href="/orcamentoscliente">OrçamentosClientes</a></li>
-            <li><a href="/orcamentosconcluidos">OrçamentosConcluidos</a></li>
-
-            </ul>
-
-          </li>
-          
-          <li class="right"><a href="/sair">Sair</a></li>
-        </ul>
-
-      </nav>
-      </div>
-
-      <Switch>
-
-        <Route path="/about" exact>
-            <About />
-        </Route>
-
-        <Route path="/Servicos" exact>
-            <Servico />
-        </Route>
-
-        <Route path="/Pessoas" exact>
-            <Pessoa />
-        </Route>
-
-        <Route path="/Enderecos" exact>
-            <Endereco />
-        </Route>
-
-        <Route path="/Emails" exact>
-            <Email />
-        </Route>
-
-        <Route path="/Telefones" exact>
-            <Telefone />
-        </Route>
-
-        <Route path="/Clientes" exact>
-            <Cliente />
-        </Route>
-
-        <Route path="/Funcionarios" exact>
-            <Funcionario />
-        </Route>
-
-        <Route path="/Orcamentos" exact>
-            <Orcamento />
-        </Route>
-
-        <Route path="/OrcamentosCliente" exact>
-            <OrcamentoCliente />
-        </Route>
-
-        <Route path="/OrcamentosConcluidos" exact>
-            <OrcamentoConcluido />
-        </Route>
-
-        <Route path="/" exact>
-            <Home />
-        </Route>
-
-      </Switch>
-
-
-    </Router>
-
-    /* <div className="container">
-      <Header title="Serviços App"/>
-      <br />
-      <ServBox />
-    </div> */
     
-  );
+
+      <Router>
+        {/* <Link to="/">Home</Link>
+  
+        <Link to="/about">About</Link>
+  
+        <Link to="/Servicos">Serviço</Link>
+  
+        <Link to="/Pessoas">Pessoas</Link>
+  
+        <Link to="/Enderecos">Endereço</Link>
+  
+        <Link to="/Testes">Testes</Link> */}
+        
+        <div className="bs-component" ref={this.container}>
+  
+        {/* <nav role="navigation">
+  
+          <ul class="topnav">
+            <li><a href="/">Inicio</a></li>
+            <li><a href="/about">Sobre</a></li>
+            <li><a href="/servicos">Serviços</a></li>
+            <li><a href="/pessoas">Pessoas</a></li>
+            <li><a href="/enderecos">Endereços</a></li>
+            <li><a href="/emails">Emails</a></li>
+            <li><a href="/telefones">Telefones</a></li>
+            <li><a href="/clientes">Clientes</a></li>
+            <li><a href="/funcionarios">Funcionarios</a></li>
+            <li><a href="/orcamentos">Orçamentos</a></li>
+            <li><a>Relatórios</a>
+              <ul class="dropdown">
+  
+              <li><a href="/orcamentoscliente">OrçamentosClientes</a></li>
+              <li><a href="/orcamentosconcluidos">OrçamentosConcluidos</a></li>
+  
+              </ul>
+  
+            </li>
+            
+            <li class="right"><a href="/sair">Sair</a></li>
+          </ul>
+  
+        </nav> */}
+  
+        <ul className="nav nav-tabs">
+            <li className=""><a className="" data-toggle="tab" href="/"><img src="/elipselogo.jpg" className="img-responsive"></img></a></li>
+            <li className="nav-item "><a className="nav-link" data-toggle="tab" href="/">Inicio</a></li>
+            <li className="nav-item"><a className="nav-link show" data-toggle="tab" href="/about">Sobre</a></li>
+            <li className="nav-item"><a className="nav-link" data-toggle="tab" href="/servicos">Serviços</a></li>
+            <li className="nav-item"><a className="nav-link" data-toggle="tab" href="/pessoas">Pessoas</a></li>
+            <li className="nav-item"><a className="nav-link" data-toggle="tab" href="/enderecos">Endereços</a></li>
+            <li className="nav-item"><a className="nav-link" data-toggle="tab" href="/emails">Emails</a></li>
+            <li className="nav-item"><a className="nav-link" data-toggle="tab" href="/telefones">Telefones</a></li>
+            <li className="nav-item"><a className="nav-link" data-toggle="tab" href="/clientes">Clientes</a></li>
+            <li className="nav-item"><a className="nav-link" data-toggle="tab" href="/funcionarios">Funcionarios</a></li>
+            <li className="nav-item"><a className="nav-link" data-toggle="tab" href="/orcamentos">Orçamentos</a></li>
+            <li className="nav-item dropdown" onClick={this.handleButtonClick}><a className="nav-link dropdown-toggle" >Relatórios</a>
+
+            <div className={this.state.open ? "dropdown-menu show" : "dropdown-menu"} x-placement="bottom-start">
+              <a className="dropdown-item nav-link" href="/orcamentoscliente">Orçamentos De Clientes</a>
+              <div className="dropdown-divider" />
+              <a className="dropdown-item nav-link" href="/orcamentosconcluidos">Orçamentos Concluidos</a>
+            </div>
+            
+              {/* <ul class="dropdown">
+  
+              <li><a href="/orcamentoscliente">OrçamentosClientes</a></li>
+              <li><a href="/orcamentosconcluidos">OrçamentosConcluidos</a></li>
+  
+              </ul> */}
+  
+            </li>
+            
+            <li class="nav-item right"><a className="nav-link" data-toggle="tab" href="/sair">Sair</a></li>
+          </ul>
+  
+        
+  
+  
+        </div>
+  
+        <Switch>
+  
+          <Route path="/about" exact>
+              <About />
+          </Route>
+  
+          <Route path="/Servicos" exact>
+              <Servico />
+          </Route>
+  
+          <Route path="/Pessoas" exact>
+              <Pessoa />
+          </Route>
+  
+          <Route path="/Enderecos" exact>
+              <Endereco />
+          </Route>
+  
+          <Route path="/Emails" exact>
+              <Email />
+          </Route>
+  
+          <Route path="/Telefones" exact>
+              <Telefone />
+          </Route>
+  
+          <Route path="/Clientes" exact>
+              <Cliente />
+          </Route>
+  
+          <Route path="/Funcionarios" exact>
+              <Funcionario />
+          </Route>
+  
+          <Route path="/Orcamentos" exact>
+              <Orcamento />
+          </Route>
+  
+          <Route path="/OrcamentosCliente" exact>
+              <OrcamentoCliente />
+          </Route>
+  
+          <Route path="/OrcamentosConcluidos" exact>
+              <OrcamentoConcluido />
+          </Route>
+  
+          <Route path="/" exact>
+              <Home />
+          </Route>
+  
+        </Switch>
+  
+  
+      </Router>
+  
+      /* <div className="container">
+        <Header title="Serviços App"/>
+        <br />
+        <ServBox />
+      </div> */
+      
+    );
+
+  }
+  
 }
 
 function Home() {
