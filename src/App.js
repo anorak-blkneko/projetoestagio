@@ -130,10 +130,8 @@ class App extends Component {
             <li class="nav-item right"><a className="nav-link" data-toggle="tab" href="/sair">Sair</a></li>
           </ul>
 
-          <div className="cantainer">
-
-            
-          </div>
+         
+          
   
         
   
@@ -208,7 +206,28 @@ class App extends Component {
 }
 
 function Home() {
-  return <h2>Home</h2>;
+  return (
+    <div className="homebg">
+      
+
+      <div className="container">
+
+      <img src="/elipseFullPNG.png" className="img-responsive2"></img>
+
+      
+      
+      
+      </div>
+
+      <div id="footer">
+
+            <p>Elipse Projetos Industriais & Desenhos Técnicos</p>
+
+      </div>
+
+    </div>
+    
+  );
 }
 
 function About() {
