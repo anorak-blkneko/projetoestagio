@@ -101,8 +101,7 @@ class App extends Component {
   
         <ul className="nav nav-tabs">
             <li className=""><a className="" data-toggle="tab" href="/"><img src="/elipselogo.jpg" className="img-responsive"></img></a></li>
-            <li className="nav-item "><a className="nav-link" data-toggle="tab" href="/">Inicio</a></li>
-            <li className="nav-item"><a className="nav-link show" data-toggle="tab" href="/about">Sobre</a></li>
+            {/* <li className="nav-item "><a className="nav-link" data-toggle="tab" href="/">Inicio</a></li> */}
             <li className="nav-item"><a className="nav-link" data-toggle="tab" href="/servicos">Serviços</a></li>
             <li className="nav-item"><a className="nav-link" data-toggle="tab" href="/pessoas">Pessoas</a></li>
             <li className="nav-item"><a className="nav-link" data-toggle="tab" href="/enderecos">Endereços</a></li>
@@ -130,6 +129,11 @@ class App extends Component {
             
             <li class="nav-item right"><a className="nav-link" data-toggle="tab" href="/sair">Sair</a></li>
           </ul>
+
+          <div className="cantainer">
+
+            
+          </div>
   
         
   

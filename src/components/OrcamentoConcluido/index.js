@@ -529,7 +529,7 @@ export default class OrcConBox extends Component {
 
     state = {
         orcamentos: [],
-        message: { text: 'Nessa página você pode cadastrar, deletar e alterar Orçamentos.', alert: '' }
+        message: { text: 'Nessa página você pode visualizar os orçamentos concluídos', alert: '' }
     }
 
     componentDidMount() {
@@ -640,7 +640,7 @@ export default class OrcConBox extends Component {
 
     timerMessage = (duration) => {
         setTimeout(() => {
-            this.setState({ message: { text: 'Nessa página você pode cadastrar, deletar e alterar Orçamentos.', alert: ''} });
+            this.setState({ message: { text: 'Nessa página você pode visualizar os orçamentos concluídos', alert: ''} });
 
         }, duration);
         
@@ -660,9 +660,9 @@ export default class OrcConBox extends Component {
         return (
             <div>
                 {
-                    this.state.message.text !== 'Nessa página você pode cadastrar, deletar e alterar Orçamentos.'? (
+                    this.state.message.text !== 'Nessa página você pode visualizar os orçamentos concluídos'? (
                         <Alert color={this.state.message.alert} className="text-center"> {this.state.message.text} </Alert>
-                    ) : <Alert color='dark' className="text-center"> Nessa página você pode cadastrar, deletar e alterar Orçamentos. </Alert>
+                    ) : <Alert color='dark' className="text-center"> Nessa página você pode visualizar os orçamentos concluídos </Alert>
                 }
             
                 <div className="row">

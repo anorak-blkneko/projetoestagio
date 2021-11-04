@@ -441,7 +441,7 @@ export default class OrcCliBox extends Component {
 
     state = {
         orcamentos: [],
-        message: { text: 'Nessa página você pode cadastrar, deletar e alterar Orçamentos.', alert: '' }
+        message: { text: 'Nessa página você pode visualizar os orçamentos de algum cliente expecífico.', alert: '' }
     }
 
     componentDidMount() {
@@ -552,7 +552,7 @@ export default class OrcCliBox extends Component {
 
     timerMessage = (duration) => {
         setTimeout(() => {
-            this.setState({ message: { text: 'Nessa página você pode cadastrar, deletar e alterar Orçamentos.', alert: ''} });
+            this.setState({ message: { text: 'Nessa página você pode visualizar os orçamentos de algum cliente expecífico.', alert: ''} });
 
         }, duration);
         
@@ -572,9 +572,9 @@ export default class OrcCliBox extends Component {
         return (
             <div>
                 {
-                    this.state.message.text !== 'Nessa página você pode cadastrar, deletar e alterar Orçamentos.'? (
+                    this.state.message.text !== 'Nessa página você pode visualizar os orçamentos de algum cliente expecífico.'? (
                         <Alert color={this.state.message.alert} className="text-center"> {this.state.message.text} </Alert>
-                    ) : <Alert color='dark' className="text-center"> Nessa página você pode cadastrar, deletar e alterar Orçamentos. </Alert>
+                    ) : <Alert color='dark' className="text-center"> Nessa página você pode visualizar os orçamentos de algum cliente expecífico. </Alert>
                 }
             
                 <div className="row">
