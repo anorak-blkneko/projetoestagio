@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
-
+import Navbar from './components/Navbar/Navbar'
 import Header from './components/Header';
 import ServBox from './components/Servico';
 import PessBox from './components/Pessoa';
@@ -16,6 +16,7 @@ import FuncBox from './components/Funcionario';
 import OrcBox from './components/Orcamento';
 import OrcCliBox from './components/OrcamentoCliente';
 import OrcConBox from './components/OrcamentoConcluido';
+import Login from './components/Login/login'
 
 
 class App extends Component {
@@ -69,74 +70,7 @@ class App extends Component {
   
         <Link to="/Testes">Testes</Link> */}
         
-        <div className="bs-component" ref={this.container}>
-  
-        {/* <nav role="navigation">
-  
-          <ul class="topnav">
-            <li><a href="/">Inicio</a></li>
-            <li><a href="/about">Sobre</a></li>
-            <li><a href="/servicos">Serviços</a></li>
-            <li><a href="/pessoas">Pessoas</a></li>
-            <li><a href="/enderecos">Endereços</a></li>
-            <li><a href="/emails">Emails</a></li>
-            <li><a href="/telefones">Telefones</a></li>
-            <li><a href="/clientes">Clientes</a></li>
-            <li><a href="/funcionarios">Funcionarios</a></li>
-            <li><a href="/orcamentos">Orçamentos</a></li>
-            <li><a>Relatórios</a>
-              <ul class="dropdown">
-  
-              <li><a href="/orcamentoscliente">OrçamentosClientes</a></li>
-              <li><a href="/orcamentosconcluidos">OrçamentosConcluidos</a></li>
-  
-              </ul>
-  
-            </li>
-            
-            <li class="right"><a href="/sair">Sair</a></li>
-          </ul>
-  
-        </nav> */}
-  
-        <ul className="nav nav-tabs">
-            <li className=""><a className="" data-toggle="tab" href="/"><img src="/elipselogo.jpg" className="img-responsive"></img></a></li>
-            {/* <li className="nav-item "><a className="nav-link" data-toggle="tab" href="/">Inicio</a></li> */}
-            <li className="nav-item"><a className="nav-link" data-toggle="tab" href="/servicos">Serviços</a></li>
-            <li className="nav-item"><a className="nav-link" data-toggle="tab" href="/pessoas">Pessoas</a></li>
-            <li className="nav-item"><a className="nav-link" data-toggle="tab" href="/enderecos">Endereços</a></li>
-            <li className="nav-item"><a className="nav-link" data-toggle="tab" href="/emails">Emails</a></li>
-            <li className="nav-item"><a className="nav-link" data-toggle="tab" href="/telefones">Telefones</a></li>
-            <li className="nav-item"><a className="nav-link" data-toggle="tab" href="/clientes">Clientes</a></li>
-            <li className="nav-item"><a className="nav-link" data-toggle="tab" href="/funcionarios">Funcionarios</a></li>
-            <li className="nav-item"><a className="nav-link" data-toggle="tab" href="/orcamentos">Orçamentos</a></li>
-            <li className="nav-item dropdown" onClick={this.handleButtonClick}><a className="nav-link dropdown-toggle" >Relatórios</a>
-
-            <div className={this.state.open ? "dropdown-menu show" : "dropdown-menu"} x-placement="bottom-start">
-              <a className="dropdown-item nav-link" href="/orcamentoscliente">Orçamentos De Clientes</a>
-              <div className="dropdown-divider" />
-              <a className="dropdown-item nav-link" href="/orcamentosconcluidos">Orçamentos Concluidos</a>
-            </div>
-            
-              {/* <ul class="dropdown">
-  
-              <li><a href="/orcamentoscliente">OrçamentosClientes</a></li>
-              <li><a href="/orcamentosconcluidos">OrçamentosConcluidos</a></li>
-  
-              </ul> */}
-  
-            </li>
-            
-            <li class="nav-item right"><a className="nav-link" data-toggle="tab" href="/sair">Sair</a></li>
-          </ul>
-
-         
-          
-  
         
-  
-  
-        </div>
   
         <Switch>
   
@@ -184,8 +118,12 @@ class App extends Component {
               <OrcamentoConcluido />
           </Route>
   
-          <Route path="/" exact>
+          <Route path="/Home" exact>
               <Home />
+          </Route>
+
+          <Route path="/" exact>
+              <LoginPage />
           </Route>
   
         </Switch>
@@ -208,6 +146,7 @@ class App extends Component {
 function Home() {
   return (
     <div className="homebg">
+      <Navbar/>
       
 
       <div className="container">
@@ -232,7 +171,8 @@ function Home() {
 
 function About() {
   return (
-    <div>
+    <div className="homebg">
+      
       
 
       <div className="container">
@@ -249,113 +189,185 @@ function About() {
 
 function Servico(){
   return (
+    <div className="homebg">
+      <Navbar/>
+
     <div className="container">
+      
       <Header title="Página de Serviços"/>
       <br />
       <ServBox />
     </div>
+
+    </div>
+    
   );
 
 }
 
 function Pessoa(){
   return (
-    <div className="container">
+    <div className="homebg">
+      <Navbar/>
+
+      <div className="container">
       <Header title="Página de Pessoas"/>
       <br />
       <PessBox />
     </div>
+
+    </div>
+    
   );
 
 }
 
 function Endereco(){
   return (
-    <div className="container">
+    <div className="homebg">
+      <Navbar/>
+
+      <div className="container">
       <Header title="Página de Endereços"/>
       <br />
       <EndBox />
     </div>
+
+    </div>
+    
   );
 
 }
 
 function Email(){
   return (
-    <div className="container">
+    <div className="homebg">
+      <Navbar/>
+
+      <div className="container">
       <Header title="Página de Emails"/>
       <br />
       <EmailBox />
     </div>
+
+    </div>
+    
   );
 
 }
 
 function Telefone(){
   return (
-    <div className="container">
+    <div className="homebg">
+      <Navbar/>
+
+      <div className="container">
       <Header title="Página de Telefones"/>
       <br />
       <TelBox />
     </div>
+
+    </div>
+    
   );
 
 }
 
 function Cliente(){
   return (
-    <div className="container">
+    <div className="homebg">
+      <Navbar/>
+
+      <div className="container">
       <Header title="Página de Clientes"/>
       <br />
       <CliBox />
     </div>
+
+    </div>
+    
   );
 
 }
 
 function Funcionario(){
   return (
-    <div className="container">
+    <div className="homebg">
+      <Navbar/>
+
+      <div className="container">
       <Header title="Página de Funcionarios"/>
       <br />
       <FuncBox />
     </div>
+
+    </div>
+    
   );
 
 }
 
 function Orcamento(){
   return (
-    <div className="container">
+    <div className="homebg">
+      <Navbar/>
+
+      <div className="container">
       <Header title="Página de Orçamentos"/>
       <br />
       <OrcBox />
     </div>
+
+    </div>
+    
   );
 
 }
 
 function OrcamentoCliente(){
   return (
-    <div className="container">
+    <div className="homebg">
+      <Navbar/>
+
+      <div className="container">
       <Header title="Orçamentos de Clientes"/>
       <br />
       <OrcCliBox />
     </div>
+
+    </div>
+    
   );
 
 }
 
 function OrcamentoConcluido(){
   return (
-    <div className="container">
+    <div className="homebg">
+      <Navbar/>
+
+      <div className="container">
       <Header title="Orçamentos Concluidos"/>
       <br />
       <OrcConBox />
     </div>
+
+    </div>
+    
   );
 
 }
+
+function LoginPage() {
+  return (
+    <div>
+
+      <Login />
+
+    </div>
+  );
+}
+
 
 function Teste() {
   return (
