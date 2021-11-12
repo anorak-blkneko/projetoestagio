@@ -2,6 +2,7 @@ import { render } from '@testing-library/react';
 import React, {Component} from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { useAuth0 } from '@auth0/auth0-react';
 
 import Navbar from './components/Navbar/Navbar'
 import Header from './components/Header';
@@ -20,6 +21,7 @@ import Login from './components/Login/login'
 
 
 class App extends Component {
+  
 
   state = {
     open: false
@@ -42,6 +44,7 @@ class App extends Component {
 
   componentDidMount() {
     document.addEventListener("mousedown", this.handleClickOutside);
+
   } 
   componentWillUnmount() {
     document.removeEventListener("mousedown", this.handleClickOutside);
@@ -54,6 +57,7 @@ class App extends Component {
 
   render(){
     return (
+
 
     
 
@@ -144,7 +148,9 @@ class App extends Component {
 }
 
 function Home() {
+  const { user, isAuthenticated, isLoading } = useAuth0();
   return (
+    isAuthenticated && (
     <div className="homebg">
       <Navbar/>
       
@@ -165,6 +171,13 @@ function Home() {
       </div>
 
     </div>
+
+    ) || !isAuthenticated && (
+      <div>
+        <Login />
+      </div>
+    )
+    
     
   );
 }
@@ -188,7 +201,9 @@ function About() {
 }
 
 function Servico(){
+  const { user, isAuthenticated, isLoading } = useAuth0();
   return (
+    isAuthenticated && (
     <div className="homebg">
       <Navbar/>
 
@@ -200,13 +215,21 @@ function Servico(){
     </div>
 
     </div>
+
+    ) || !isAuthenticated && (
+      <div>
+        <Login />
+      </div>
+    )
     
   );
 
 }
 
 function Pessoa(){
+  const { user, isAuthenticated, isLoading } = useAuth0();
   return (
+    isAuthenticated && (
     <div className="homebg">
       <Navbar/>
 
@@ -217,13 +240,21 @@ function Pessoa(){
     </div>
 
     </div>
+
+    ) || !isAuthenticated && (
+      <div>
+        <Login />
+      </div>
+    )
     
   );
 
 }
 
 function Endereco(){
+  const { user, isAuthenticated, isLoading } = useAuth0();
   return (
+    isAuthenticated && (
     <div className="homebg">
       <Navbar/>
 
@@ -234,13 +265,21 @@ function Endereco(){
     </div>
 
     </div>
+
+    ) || !isAuthenticated && (
+      <div>
+        <Login />
+      </div>
+    )
     
   );
 
 }
 
 function Email(){
+  const { user, isAuthenticated, isLoading } = useAuth0();
   return (
+    isAuthenticated && (
     <div className="homebg">
       <Navbar/>
 
@@ -251,13 +290,21 @@ function Email(){
     </div>
 
     </div>
+
+    ) || !isAuthenticated && (
+      <div>
+        <Login />
+      </div>
+    )
     
   );
 
 }
 
 function Telefone(){
+  const { user, isAuthenticated, isLoading } = useAuth0();
   return (
+    isAuthenticated && (
     <div className="homebg">
       <Navbar/>
 
@@ -268,13 +315,21 @@ function Telefone(){
     </div>
 
     </div>
+
+    ) || !isAuthenticated && (
+      <div>
+        <Login />
+      </div>
+    )
     
   );
 
 }
 
 function Cliente(){
+  const { user, isAuthenticated, isLoading } = useAuth0();
   return (
+    isAuthenticated && (
     <div className="homebg">
       <Navbar/>
 
@@ -285,13 +340,21 @@ function Cliente(){
     </div>
 
     </div>
+
+    ) || !isAuthenticated && (
+      <div>
+        <Login />
+      </div>
+    )
     
   );
 
 }
 
 function Funcionario(){
+  const { user, isAuthenticated, isLoading } = useAuth0();
   return (
+    isAuthenticated && (
     <div className="homebg">
       <Navbar/>
 
@@ -302,13 +365,21 @@ function Funcionario(){
     </div>
 
     </div>
+
+    ) || !isAuthenticated && (
+      <div>
+        <Login />
+      </div>
+    )
     
   );
 
 }
 
 function Orcamento(){
+  const { user, isAuthenticated, isLoading } = useAuth0();
   return (
+    isAuthenticated && (
     <div className="homebg">
       <Navbar/>
 
@@ -319,13 +390,21 @@ function Orcamento(){
     </div>
 
     </div>
+
+    ) || !isAuthenticated && (
+      <div>
+        <Login />
+      </div>
+    )
     
   );
 
 }
 
 function OrcamentoCliente(){
+  const { user, isAuthenticated, isLoading } = useAuth0();
   return (
+    isAuthenticated && (
     <div className="homebg">
       <Navbar/>
 
@@ -336,13 +415,21 @@ function OrcamentoCliente(){
     </div>
 
     </div>
+
+    ) || !isAuthenticated && (
+      <div>
+        <Login />
+      </div>
+    )
     
   );
 
 }
 
 function OrcamentoConcluido(){
+  const { user, isAuthenticated, isLoading } = useAuth0();
   return (
+    isAuthenticated && (
     <div className="homebg">
       <Navbar/>
 
@@ -353,6 +440,12 @@ function OrcamentoConcluido(){
     </div>
 
     </div>
+
+    ) || !isAuthenticated && (
+      <div>
+        <Login />
+      </div>
+    )
     
   );
 

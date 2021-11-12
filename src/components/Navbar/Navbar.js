@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import LogoutButton from '../Login/LogoutButton';
 
 class Navbar extends Component{
     state = {
@@ -95,7 +96,8 @@ class Navbar extends Component{
   
             </li>
             
-            <li class="nav-item right"><a className="nav-link" data-toggle="tab" href="/">Sair</a></li>
+            {/* <li class="nav-item right"><a className="nav-link" data-toggle="tab" href="/">Sair</a></li> */}
+            <LogoutButton className="nav-link" data-toggle="tab" href="/" />
           </ul>
 
          

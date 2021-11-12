@@ -6,6 +6,9 @@ import { BrowserRouter as Router, Switch, Route, Link, Redirect, useHistory  } f
 
 import App from '../../App'
 import "./stylelogin.css"
+import LoginButton from './LoginButton';
+import LogoutButton from './LogoutButton';
+import HomeButton from './HomeButton';
 
 class Login extends Component {
 
@@ -14,6 +17,7 @@ class Login extends Component {
     nome: "",
     senha: "",
     val: false,
+    message: { text: 'Ops, parece que você não está logado, para prosseguir, efetue o login.', alert: 'dark' },
 }
 
   UrlU = 'https://api-estagio-renan-augusto.herokuapp.com/usuarios';
@@ -39,6 +43,15 @@ class Login extends Component {
     console.log(this.state.senha) */
   }
 
+  timerMessage = (duration) => {
+    setTimeout(() => {
+        this.setState({ message: { text: 'Ops, parece que você não está logado, para prosseguir, efetue o login.', alert: 'dark'} });
+        this.forceUpdate();
+
+    }, duration);
+    
+  }
+
   ValidadeData = () => {
 
     /* console.log("validate")
@@ -55,8 +68,18 @@ class Login extends Component {
 
       var b = this.state.usuarios.some(u => u.nome_usuario === this.state.nome && u.senha_usuario === this.state.senha)
       this.state.val = b;
+
+      if(!b){
+        this.setState({message: { text: 'Usuario ou senha incorreto', alert: 'danger' }});
+      }
+      else{
+        this.setState({message: { text: 'Logado com sucesso! Clique no botão "Entrar" para prosseguir', alert: 'success' }});
+      }
       /* console.log(this.state.val) */
+      this.timerMessage(3500);
       this.forceUpdate();
+
+     
 
     
   }
@@ -67,6 +90,8 @@ class Login extends Component {
 
       <div>
 
+        
+
         <div class="sidenav">
           <div class="login-main-text">
             {/* <h2>Elipse<br />Projetos industriais<br />&<br />Desenhos técnicos</h2> */}
@@ -74,30 +99,30 @@ class Login extends Component {
           </div>
         </div>
         <div class="main">
+
+          <br/>
+
+                  {
+                    this.state.message.text !== 'Ops, parece que você não está logado, para prosseguir, efetue o login.'? (
+                        <Alert color={this.state.message.alert} className="text-center"> {this.state.message.text} </Alert>
+                    ) : <Alert color='dark' className="text-center"> Ops, parece que você não está logado, para prosseguir, efetue o login. </Alert>
+                  }
           <div id="loginbox">
             <div class="col-sm-12 align-self-center">
               <div class="login-form">
                 <form>
+
                   <div class="form-group">
-                    <label>Usuário:</label>
-                    <input id="USRBTN" type="text" class="form-control" placeholder="Usuário" value={this.state.nome} onChange={this.ChangeNameValue} />
+
+                  <LoginButton />
+                  <LogoutButton />
+                  <HomeButton />
+
+                  
+                  
+
                   </div>
-                  <div class="form-group">
-                    <label>Senha:</label>
-                    <input
-                      id="PASBTN"
-                      type="password"
-                      class="form-control"
-                      placeholder="Senha"
-                      value={this.state.senha}
-                      onChange={this.ChangeSenhaValue}
-                    />
-                  </div>
-                  {/* <button onClick={ () => this.ValidadeData()} class="btn btn-black">Login</button> */}
-                  <a onClick={() => this.ValidadeData()} class="btn btn-primary">Autenticar</a>
-{/* <button type="submit" class="btn btn-secondary">Register</button> */}
-                  <a href="/Home" hidden={!this.state.val} class="btn btn-primary">Entrar</a>
-                  {/* <a href="" class="btn btn-primary">Registrar</a> */}
+
                 </form>
               </div>
             </div>
