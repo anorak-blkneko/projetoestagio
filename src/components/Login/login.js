@@ -88,17 +88,17 @@ class Login extends Component {
   render() {
     return (
 
-      <div>
+      <div className="container CB"> 
 
         
 
-        <div class="sidenav">
-          <div class="login-main-text">
+        {/* <div class="sidenav"> */}
+          {/* <div class="login-main-text"> */}
             {/* <h2>Elipse<br />Projetos industriais<br />&<br />Desenhos técnicos</h2> */}
             <img src="./elipseFullPNG.png" className="imgfit" />
-          </div>
-        </div>
-        <div class="main">
+          {/* </div> */}
+        {/* </div> */}
+        {/* <div class="main"> */}
 
           <br/>
 
@@ -108,14 +108,14 @@ class Login extends Component {
                     ) : <Alert color='dark' className="text-center"> Ops, parece que você não está logado, para prosseguir, efetue o login. </Alert>
                   }
           <div id="loginbox">
-            <div class="col-sm-12 align-self-center">
-              <div class="login-form">
+            {/* <div class="col-sm-12 align-self-center">
+              <div class="login-form"> */}
                 <form>
 
                   <div class="form-group">
 
-                  <LoginButton />
-                  <LogoutButton />
+                  <LoginButton className="btn" />
+                  {/* <LogoutButton /> */}
                   <HomeButton />
 
                   
@@ -124,10 +124,10 @@ class Login extends Component {
                   </div>
 
                 </form>
-              </div>
-            </div>
+              {/* </div>
+            </div> */}
           </div>
-        </div>
+        {/* </div> */}
 
       </div>
 

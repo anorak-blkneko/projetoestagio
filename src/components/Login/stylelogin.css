@@ -1,16 +1,20 @@
 body {
     font-family: "Lato", sans-serif;
-    background-color: #2A4FBF;
+    background-color: whitesmoke;
 }
 
 #loginbox{
-    background-color: #FFF;
+    background-color: #000000e6;
     height: auto;
     width: 400px;
     margin-left: 25%;
     text-align: center;
     border-radius: 15px;
     padding-bottom: 10px;
+
+    margin: auto;
+    margin-top: 10%;
+    margin-bottom: 10%;
 
 }
 
@@ -88,7 +92,7 @@ body {
 
 .imgfit{
     width: 100%;
-    height: 100%;
+    height: 10%;
 }
 
 .btn{
@@ -98,4 +102,26 @@ body {
 
 .label{
     margin-top: 15px;
+}
+
+.CB{
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 10px 10px 8px 10px #888888;
+    border-radius: 15px;
+}
+
+.btnL{
+    background-color: #0358e7;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 17px;
+    color: white;
+}
+
+.btnLO{
+    background-color: white;
 }

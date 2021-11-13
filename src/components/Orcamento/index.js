@@ -643,7 +643,7 @@ export default class OrcBox extends Component {
                     </div>
                     <div className="col-md-6 my-3">
 
-                        <h2 className="font-weight-bold text-center"> Lista de Orçamentos</h2>
+                        <h2 className="font-weight-bold text-center overflow-y: scroll;"> Lista de Orçamentos</h2>
                         <ListOrc orcamentos={this.state.orcamentos} deleteorcamentos={this.delete} />
                     </div>
 
